@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web-client-source-code:
+    build: web-client-source-code/
+    image: mooo.tech/testnet-wallet-web-client-source-code:0.0.1
+    volumes:
+     - web-client-source-code-volume:/home/app/
+  web-client-builder:
+    image: mooo.tech/angular-cli:1.4.8
+    volumes:
+     - web-client-source-code-volume:/home/app/
+     - web-client-dist-volume:/home/dist/
+    depends_on:
+     - web-client-source-code
+    working_dir: /home/app/
+    command: sh -c "npm install && ng build --prod && cp -r dist/* ../dist && rm -rf dist/"
+  web-client-runner:
+    image: mooo.tech/httpd-angular:2.4.27-alpine
+    ports:
+     - "3004:80"
+    volumes:
+     - web-client-dist-volume:/usr/local/apache2/htdocs/
+    depends_on:
+     - web-client-builder
+    command: httpd -D FOREGROUND
+    restart: unless-stopped
+volumes:
+ web-client-source-code-volume:
+ web-client-dist-volume:
