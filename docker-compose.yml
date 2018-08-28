@@ -37,7 +37,7 @@ services:
     depends_on:
      - web-client-source-code
     working_dir: /home/app/
-    command: sh -c "npm install && ng build -e prod && cp -r dist/* ../dist && rm -rf dist/"
+    command: sh -c "npm install && ng build -sm false -e prod && cp -r dist/* ../dist && rm -rf dist/"
   web-client-runner:
     image: mooo.tech/httpd-angular:2.4.27-alpine
     ports:
