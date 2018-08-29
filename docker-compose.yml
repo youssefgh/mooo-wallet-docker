@@ -39,7 +39,7 @@ services:
     working_dir: /home/app/
     command: sh -c "npm install && ng build -sm false -e prod && cp -r dist/* ../dist && rm -rf dist/"
   web-client-runner:
-    image: mooo.tech/httpd-angular:2.4.27-alpine
+    image: mooo.tech/httpd-angular:2.4.34-alpine
     ports:
      - "3003:80"
     volumes:

@@ -1,4 +1,4 @@
-FROM mooo.tech/git:2.13.5-r0
+FROM mooo.tech/git:2.18.0-r0
 
 MAINTAINER Youssef GHOUBACH <ghoubach.youssef@gmail.com>
 

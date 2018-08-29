@@ -1,5 +1,5 @@
 #!/bin/sh
-autodeploy_dir=/opt/payara41/glassfish/domains/domain1/autodeploy/
+autodeploy_dir=/opt/payara5/glassfish/domains/domain1/autodeploy/
 app_dir=/home/app/
 archive_name=tcp-rest-proxy.war
 if [ -e $autodeploy_dir/$archive_name ]

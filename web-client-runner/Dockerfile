@@ -1,4 +1,4 @@
-FROM mooo.tech/payara:4.1.2.172
+FROM mooo.tech/payara:5.182
 
 MAINTAINER Youssef GHOUBACH <ghoubach.youssef@gmail.com>
 

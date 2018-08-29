@@ -1,4 +1,4 @@
-FROM mooo.tech/maven:3.3.9-r1
+FROM mooo.tech/maven:3.5.4-r1
 
 MAINTAINER Youssef GHOUBACH <ghoubach.youssef@gmail.com>
 
