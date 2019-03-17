@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
   web-client-source-code:
     build: web-client-source-code/
-    image: mooo.tech/wallet-web-client-source-code:0.0.7
+    image: mooo.tech/wallet-web-client-source-code:0.0.8
     volumes:
      - web-client-source-code-volume:/home/app/
   web-client-builder:
