@@ -1,54 +1,23 @@
-version: '3'
+version: '3.6'
 services:
-  web-server-source-code:
-    build: web-server-source-code/
-    image: mooo.tech/wallet-web-server-source-code:0.0.2
-    volumes:
-     - web-server-source-code-volume:/home/app/
-  web-server-builder:
-    build: web-server-builder/
-    image: mooo.tech/wallet-web-server-builder:0.0.1
-    volumes:
-     - web-server-source-code-volume:/home/app/
-    depends_on:
-     - web-server-source-code
-    command: sh -c "mvn package && rm -rf /root/.m2/ && touch maven_done"
-  web-server-runner:
-    build: web-server-runner/
-    image: mooo.tech/wallet-web-server-runner:0.0.1
+  web-server:
+    build: 
+      context: web-server/
+      args:
+       - VERSION=master
+       - CONTEXT=Wallet
+    image: mooo-wallet-web-server:0.0.2
     ports:
      - "4003:8080"
-    volumes:
-     - web-server-source-code-volume:/home/app/
-    depends_on:
-     - web-server-builder
-    command: /opt/wait-and-deploy.sh
     restart: unless-stopped
-  web-client-source-code:
-    build: web-client-source-code/
-    image: mooo.tech/wallet-web-client-source-code:0.0.9
-    volumes:
-     - web-client-source-code-volume:/home/app/
-  web-client-builder:
-    image: mooo.tech/angular-cli:1.6.5
-    volumes:
-     - web-client-source-code-volume:/home/app/
-     - web-client-dist-volume:/home/dist/
-    depends_on:
-     - web-client-source-code
-    working_dir: /home/app/
-    command: sh -c "npm install && ng build -sm false -e prod && cp -r dist/* ../dist && rm -rf dist/"
-  web-client-runner:
-    image: mooo.tech/httpd-angular:2.4.34-alpine
+  web-client:
+    build: 
+      context: web-client/
+      args:
+       - VERSION=master
+       - ENV=${WEB_CLIENT_ENV}
+    image: mooo-wallet-web-client-${WEB_CLIENT_ENV}:0.0.2
     ports:
      - "3003:80"
-    volumes:
-     - web-client-dist-volume:/usr/local/apache2/htdocs/
-    depends_on:
-     - web-client-builder
     command: httpd -D FOREGROUND
     restart: unless-stopped
-volumes:
- web-server-source-code-volume:
- web-client-source-code-volume:
- web-client-dist-volume:
