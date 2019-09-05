@@ -21,7 +21,7 @@ RUN npm install --ignore-scripts
 
 RUN node angular-crypto-patch.js
 
-RUN ng build --prod --c=$ENV
+RUN ng build -c=$ENV --optimization=false
 
 FROM mooo.tech/httpd-angular:2.4.34-alpine as final
 
