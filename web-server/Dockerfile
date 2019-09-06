@@ -20,12 +20,10 @@ RUN mvn package
 
 FROM mooo.tech/payara:5.192
 
-ARG CONTEXT
-
 MAINTAINER Youssef GHOUBACH <ghoubach.youssef@gmail.com>
 
 COPY --from=builder /home/app-source/target/app.war /home/
 
-RUN echo "deploy --name $CONTEXT /home/app.war" > /home/postbootcommand
+RUN echo "deploy --contextroot / /home/app.war" > /home/postbootcommand
 
 CMD /opt/payara5/glassfish/bin/asadmin start-domain -v --postbootcommandfile=/home/postbootcommand production
