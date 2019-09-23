@@ -15,7 +15,7 @@ services:
       args:
        - VERSION=master
        - ENV=${WEB_CLIENT_ENV}
-    image: mooo-wallet-web-client-${WEB_CLIENT_ENV}:0.0.3
+    image: mooo-wallet-web-client-${WEB_CLIENT_ENV}:0.0.4
     ports:
      - "${WEB_CLIENT_PORT}:80"
     command: httpd -D FOREGROUND
