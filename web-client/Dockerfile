@@ -1,4 +1,4 @@
-FROM mooo.tech/git:2.18.0-r0  as source-downloader
+FROM docker.pkg.github.com/youssefgh/docker-git/git:2.18.1-r0  as source-downloader
 
 ARG VERSION
 
@@ -8,7 +8,7 @@ WORKDIR /home
 
 RUN git clone -b $VERSION --depth 1 https://github.com/youssefgh/mooo-wallet.git app
 
-FROM mooo.tech/angular-cli:8.3.2 as builder
+FROM docker.pkg.github.com/youssefgh/docker-angular-cli/angular-cli:8.3.2 as builder
 
 ARG ENV
 
@@ -23,6 +23,6 @@ RUN node angular-crypto-patch.js
 
 RUN ng build -c=$ENV --optimization=false
 
-FROM mooo.tech/httpd-angular:2.4.34-alpine as final
+FROM docker.pkg.github.com/youssefgh/docker-httpd-angular/httpd-angular:2.4.34-alpine as final
 
 COPY --from=builder /home/app-source/dist/ /usr/local/apache2/htdocs/
