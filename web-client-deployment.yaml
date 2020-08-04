@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.18.0 (06a2e56)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web-client
+  name: web-client
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web-client
+    spec:
+      containers:
+      - args:
+        - httpd
+        - -D
+        - FOREGROUND
+        image: docker.pkg.github.com/youssefgh/mooo-wallet/testnet-wallet:0.0.1
+        name: web-client
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}
